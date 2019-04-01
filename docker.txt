@@ -1,0 +1,8 @@
+1) sudo docker pull mysql:latest
+2) sudo docker run -d -p 3306:3306 --network=host -e MYSQL_DATABASE=db_fse_movie -e MYSQL_ROOT_PASSWORD=root -e MYSQL_USER=app_root -e MYSQL_PASSWORD=root123 mysql:latest
+3) sudo docker build -t mc-spring-backend:myTAG .
+4) sudo docker run --name mc-backend --network=host mc-spring-backend:myTAG
+5) sudo docker images (to view all images)
+6) sudo docker rmi <image-id> (to remove image)
+7) sudo docker ps -a (to list all containers running or not running)
+8) sudo docker rm <container id or name> (to remove a container)
