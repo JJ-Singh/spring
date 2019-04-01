@@ -26,3 +26,45 @@ maven-build:
  artifacts:
   paths:
   - target/*.jar
+
+
+version: '3.7'
+services:
+ mysql:
+  image: "mysql:latest"
+  ports:
+   - "3306:3306"
+  container_name: mc-mysql
+  network_mode: host
+  environment:
+   MYSQL_ROOT_PASSWORD: root
+   MYSQL_DATABASE: db_fse_movie
+   MYSQL_USER: app_root
+   MYSQL_PASSWORD: root123
+ user-app:
+  image: user-app
+  build: MovieCruiserAuthenticationService/
+  restart: always
+  network_mode: host
+  container_name: mc-spring-user-app
+  depends_on:
+   - mysql
+  ports:
+   - "8080:8080"
+ movie-app:
+  image: movie-app
+  build: MovieCruiserServer/
+  restart: always
+  network_mode: host
+  container_name: mc-spring-movie-app
+  depends_on:
+   - mysql
+  ports:
+   - "8080:8080"
+ angular:
+  image: angular-app
+  build: Frontend/
+  network_mode: host
+  container_name: mc-angular-app
+  ports:
+   - "4200:80"
